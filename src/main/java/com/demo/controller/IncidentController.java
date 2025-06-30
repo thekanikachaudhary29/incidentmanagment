@@ -20,18 +20,12 @@ public class IncidentController {
     @Autowired
     private IncidentService incidentService;
 
-    @GetMapping("/hello")
-    public String hello() {
-        return "hello Kanika";
-    }
-
-
     //create incident
     @PostMapping("/{userId}/create")
     @Operation(summary = "Create new incident on the basis of userId", description = "Returns the incident details for the given incident ID")
     public ResponseEntity<ServiceResponse<List<Incident>>> createIncident(@PathVariable Long userId, @RequestBody Incident newIncident) {
-       var incidents = incidentService.createIncident(userId, newIncident );
-       return new ResponseEntity<>(incidents, HttpStatus.OK);
+        var incidents = incidentService.createIncident(userId, newIncident);
+        return new ResponseEntity<>(incidents, HttpStatus.OK);
     }
 
     //search incident by incident id
@@ -50,7 +44,7 @@ public class IncidentController {
     public ResponseEntity<Incident> updateIncidentDetails(@PathVariable Long userId,
                                                           @PathVariable String incidentId,
                                                           @RequestBody Incident newIncident) {
-        var incidents = incidentService.updateIncidentDetails(userId, incidentId, newIncident );
+        var incidents = incidentService.updateIncidentDetails(userId, incidentId, newIncident);
         return new ResponseEntity<>(incidents, HttpStatus.OK);
     }
 }

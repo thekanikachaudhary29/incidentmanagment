@@ -1,6 +1,5 @@
 package com.demo.dto;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -12,12 +11,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginDto {
+public class ForgotPasswordRequest {
+    private String securityQuestion;
 
-    @NotBlank
-    @Column(unique = true,nullable = false)
     @Email
-    private String email;
     @NotBlank
-    private String password;
+    private String email;
+
+    private String securityAnswer;
 }

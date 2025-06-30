@@ -1,6 +1,6 @@
 package com.demo.controller;
 
-import com.demo.dto.ForgotPassword;
+import com.demo.dto.ForgotPasswordRequest;
 import com.demo.dto.LoginDto;
 import com.demo.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,8 +30,8 @@ public class LogInController {
     }
 
     //forgot password
-    public ResponseEntity<String> resetPassword(@RequestBody @Valid ForgotPassword forgotPassword) {
-       userService.resetPassword(forgotPassword);
+    public ResponseEntity<String> resetPassword(@RequestBody @Valid ForgotPasswordRequest request) {
+       userService.resetPassword(request);
        return ResponseEntity.ok("Password has been reset");
     }
 }

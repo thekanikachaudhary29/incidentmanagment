@@ -6,10 +6,7 @@ import com.demo.entity.User;
 import com.demo.repository.IncidentRepository;
 import com.demo.repository.UserRepository;
 import com.demo.serviceresponse.ServiceResponse;
-import org.aspectj.weaver.ast.Literal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;

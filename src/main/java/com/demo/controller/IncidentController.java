@@ -41,7 +41,7 @@ public class IncidentController {
     //them only.
     @PutMapping("/{userId}/update/{incidentId}")
     @Operation(summary = "Update incident details", description = "Returns the incident details for the given incident ID")
-    public ResponseEntity<Incident> updateIncidentDetails(@PathVariable Long userId,
+    public ResponseEntity<ServiceResponse<Incident>> updateIncidentDetails(@PathVariable Long userId,
                                                           @PathVariable String incidentId,
                                                           @RequestBody Incident newIncident) {
         var incidents = incidentService.updateIncidentDetails(userId, incidentId, newIncident);

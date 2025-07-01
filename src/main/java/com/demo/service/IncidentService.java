@@ -60,7 +60,7 @@ public class IncidentService {
     }
 
 
-    public Incident updateIncidentDetails(Long userId, String incidentId, Incident updatedIncident) {
+    public ServiceResponse<Incident> updateIncidentDetails(Long userId, String incidentId, Incident updatedIncident) {
         Incident existingIncident = (Incident) incidentRepository.findByIncidentId(incidentId)
                 .orElseThrow(() -> new RuntimeException("Incident not found"));
         if (!existingIncident.getReporterId() .equals(userId)) {
@@ -75,6 +75,10 @@ public class IncidentService {
         existingIncident.setIncidentStatus(updatedIncident.getIncidentStatus());
         existingIncident.setReporter(updatedIncident.getReporter());
         existingIncident.setReportedAt(updatedIncident.getReportedAt());
-        return incidentRepository.save(existingIncident);
+        Incident update = incidentRepository.save(existingIncident);
+        ServiceResponse<Incident> response = new ServiceResponse<>();
+        response.setMessage("Data is Updated");
+        response.setData(update);
+        return response;
     }
 }

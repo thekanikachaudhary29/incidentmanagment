@@ -40,5 +40,5 @@ public class Incident {
 
     private Date reportedAt;
 
-    private Long user;
+    private Long reporterId;
 }

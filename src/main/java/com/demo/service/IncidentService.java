@@ -63,7 +63,7 @@ public class IncidentService {
     public Incident updateIncidentDetails(Long userId, String incidentId, Incident updatedIncident) {
         Incident existingIncident = (Incident) incidentRepository.findByIncidentId(incidentId)
                 .orElseThrow(() -> new RuntimeException("Incident not found"));
-        if (!existingIncident.getUser().equals(userId)) {
+        if (!existingIncident.getReporterId() .equals(userId)) {
             throw new RuntimeException("You are not allowed to edit this incident");
         }
         if (existingIncident.getIncidentStatus() == IncidentStatus.CLOSED) {

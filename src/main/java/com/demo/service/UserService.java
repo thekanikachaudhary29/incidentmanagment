@@ -52,14 +52,18 @@ public class UserService {
         user.setState(user.getState());
         user.setRegion(user.getRegion());
         if (pin.getLocationOffice() != null && !pin.getLocationOffice().isEmpty()) {
-            LocationOffice office = pin.getLocationOffice().get(0);  // get first post office
+            LocationOffice office = pin.getLocationOffice().get(0);
             user.setRegion(office.getRegion());
             user.setState(office.getState());
             user.setCountry(office.getCountry());
         } else {
             throw new RuntimeException("Invalid or unsupported PIN code");
         }
-        user.setPinCode(user.getPinCode());
+        if (user.getPinCode().matches("\\d{6}")) {
+            user.setPinCode(user.getPinCode());
+        } else {
+            throw new RuntimeException("Pin Code digits must be 6 digits");
+        }
         if (!user.getMobileNumber().matches("\\d{10}")) {
             throw new RuntimeException("Mobile Number digits must be 10 digits");
         }

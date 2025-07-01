@@ -7,7 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class LocationService {
@@ -17,13 +19,21 @@ public class LocationService {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<LocationResponse[]> response = restTemplate.getForEntity(apiUrl, LocationResponse[].class);
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null && response.getBody().length > 0) {
-           List<LocationOffice> postoffices = response.getBody()[0].getLocationOffice();
-           if(postoffices != null && !postoffices.isEmpty()) {
-               LocationResponse area = new LocationResponse();
-               area.setStatus("OK");
-               area.setLocationOffice(postoffices);
-               return area;
-           }
+            LocationResponse[] allResponses = response.getBody();
+            List<LocationOffice> postoffices = new ArrayList<>();
+            for (LocationResponse res : allResponses) {
+                List<LocationOffice> allOffices = res.getLocationOffice();
+                if (allOffices != null && !allOffices.isEmpty()) {
+                    postoffices.addAll(allOffices);
+                }
+            }
+           List<LocationOffice> locationOffices = postoffices.stream().distinct().collect(Collectors.toList());
+            if (!locationOffices.isEmpty()) {
+                LocationResponse area = new LocationResponse();
+                area.setStatus("OK");
+                area.setLocationOffice(locationOffices);
+                return area;
+            }
         }
         throw new RuntimeException("Invalid Pin Code");
     }
